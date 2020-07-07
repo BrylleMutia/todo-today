@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ButtonAppBar() {
+  // styles from material ui components
   const classes = useStyles();
 
   return (
