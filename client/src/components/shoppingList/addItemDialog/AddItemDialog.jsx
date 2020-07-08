@@ -1,9 +1,22 @@
 import React, { useState } from "react";
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../actions/actions";
+import { addItem } from "../../../actions/actions";
+
+const useStyles = makeStyles({
+    addBtn: {
+        marginTop: "1rem",
+        minWidth: "50%"
+    },
+    container: {
+        display: "flex",
+        justifyContent: "center",
+    }
+});
 
 function AddItemDialog() {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,14 +42,14 @@ function AddItemDialog() {
     };
 
     return (
-        <div>
-            <Button style={{ marginTop: "1rem", marginLeft: "2%" }} variant="contained" color="primary" onClick={handleClickOpen}>
-                Add Item
+        <div className={classes.container}>
+            <Button className={classes.addBtn} variant="contained" color="primary" onClick={handleClickOpen}>
+                New Todo
             </Button>
 
             <Dialog open={isDialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleAddItem}>
-                    <DialogTitle id="form-dialog-title">ADD ITEM TO SHOPPING LIST</DialogTitle>
+                    <DialogTitle id="form-dialog-title">ADD TO MY TODO LIST</DialogTitle>
                     <DialogContent>
                         <TextField onChange={onFormChange} autoFocus margin="dense" id="name" label="Item" type="email" fullWidth />
                     </DialogContent>
@@ -44,8 +57,8 @@ function AddItemDialog() {
                         <Button onClick={handleClose} color="primary">
                             Cancel
                         </Button>
-                         <Button type="submit" onClick={handleAddItem} color="primary">
-                            Add Item
+                        <Button type="submit" onClick={handleAddItem} color="primary">
+                            Add Todo
                         </Button>
                     </DialogActions>
                 </form>

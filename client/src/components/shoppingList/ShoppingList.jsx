@@ -11,9 +11,11 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         removeBtn: {
             marginRight: "1rem",
+            padding: "0"
         },
-        addBtn: {
-            marginTop: "1rem",
+        container: {
+            display: "flex",
+            justifyContent: "center",
         },
     })
 );
@@ -29,39 +31,39 @@ function ShoppingList() {
     // get items from database
     useEffect(() => {
         dispatch(getItems());
-    }, []);
+    }, [dispatch]);
 
     const handleDeleteItem = (id) => {
         dispatch(deleteItem(id));
     };
 
     return (
-        <Container>
-            {isLoading ? (
-                <CircularProgress />
-            ) : (
-                <List>
-                    <TransitionGroup>
-                        {items.map((item) => (
-                            <CSSTransition key={item._id} timeout={500} classNames="fade">
-                                <ListItem >
-                                    <Button
-                                        className={classes.removeBtn}
-                                        color="primary"
-                                        variant="outlined"
-                                        size="small"
-                                        onClick={() => handleDeleteItem(item._id)}
-                                    >
-                                        &times;
-                                    </Button>
-                                    {item.name}
-                                </ListItem>
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                </List>
-            )}
-        </Container>
+            <Container className={classes.container}>
+                {isLoading ? (
+                    <CircularProgress />
+                ) : (
+                    <List>
+                        <TransitionGroup>
+                            {items.map((item) => (
+                                <CSSTransition key={item._id} timeout={500} classNames="fade">
+                                    <ListItem>
+                                        <Button
+                                            className={classes.removeBtn}
+                                            color="primary"
+                                            variant="outlined"
+                                            size="small"
+                                            onClick={() => handleDeleteItem(item._id)}
+                                        >
+                                            &#10003;
+                                        </Button>
+                                        {item.name}
+                                    </ListItem>
+                                </CSSTransition>
+                            ))}
+                        </TransitionGroup>
+                    </List>
+                )}
+            </Container>
     );
 }
 

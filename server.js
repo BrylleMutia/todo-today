@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 
@@ -18,6 +19,16 @@ mongoose
 
 // Use routes (redirect all api requests to routes file)
 app.use("/api/items", itemsRouter);
+
+// Serve static assets if in production (react-npm run build)
+if (process.env.NODE_ENV === "production") {
+    // Set static folder
+    app.use(express.static("client/build"));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 // initialize port
 const port = process.env.PORT || 5000;
