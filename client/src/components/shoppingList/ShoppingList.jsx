@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         removeBtn: {
             marginRight: "1rem",
-            padding: "0"
+            padding: "0",
         },
         container: {
             display: "flex",
@@ -38,32 +38,32 @@ function ShoppingList() {
     };
 
     return (
-            <Container className={classes.container}>
-                {isLoading ? (
-                    <CircularProgress />
-                ) : (
-                    <List>
-                        <TransitionGroup>
-                            {items.map((item) => (
-                                <CSSTransition key={item._id} timeout={500} classNames="fade">
-                                    <ListItem>
-                                        <Button
-                                            className={classes.removeBtn}
-                                            color="primary"
-                                            variant="outlined"
-                                            size="small"
-                                            onClick={() => handleDeleteItem(item._id)}
-                                        >
-                                            &#10003;
-                                        </Button>
-                                        {item.name}
-                                    </ListItem>
-                                </CSSTransition>
-                            ))}
-                        </TransitionGroup>
-                    </List>
-                )}
-            </Container>
+        <Container className={classes.container}>
+            {isLoading ? (
+                <CircularProgress />
+            ) : (
+                <List>
+                    <TransitionGroup>
+                        {items.map((item) => (
+                            <CSSTransition key={item._id} timeout={500} classNames="fade">
+                                <ListItem>
+                                    <Button
+                                        className={classes.removeBtn}
+                                        color="primary"
+                                        variant="outlined"
+                                        size="small"
+                                        onClick={() => handleDeleteItem(item._id)}
+                                    >
+                                        &#10003;
+                                    </Button>
+                                    {item.name}
+                                </ListItem>
+                            </CSSTransition>
+                        ))}
+                    </TransitionGroup>
+                </List>
+            )}
+        </Container>
     );
 }
 

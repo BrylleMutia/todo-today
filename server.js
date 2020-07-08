@@ -11,7 +11,8 @@ const itemsRouter = require("./routes/api/items"); // import routes
 app.use(bodyParser.json());
 
 // connect to db
-const db = "mongodb://127.0.0.1:27017";
+// local: "mongodb://127.0.0.1:27017"
+const db = "mongodb+srv://bryllemutia3:bryllem3@cluster0.jvmef.mongodb.net/todos?retryWrites=true&w=majority";
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log(`Connected to database: ${db}`))

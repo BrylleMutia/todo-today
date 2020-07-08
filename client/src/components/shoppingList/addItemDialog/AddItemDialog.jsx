@@ -6,12 +6,12 @@ import { addItem } from "../../../actions/actions";
 const useStyles = makeStyles({
     addBtn: {
         marginTop: "1rem",
-        minWidth: "50%"
+        minWidth: "50%",
     },
     container: {
         display: "flex",
         justifyContent: "center",
-    }
+    },
 });
 
 function AddItemDialog() {

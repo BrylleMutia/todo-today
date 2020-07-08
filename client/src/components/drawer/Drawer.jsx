@@ -91,9 +91,9 @@ export default function PersistentDrawerLeft() {
     };
 
     const handleLoginClick = () => {
-        console.log("login clicked!")
+        console.log("login clicked!");
         setLoginClicked(!loginClicked);
-    }
+    };
 
     return (
         <nav className={classes.root}>
@@ -117,7 +117,9 @@ export default function PersistentDrawerLeft() {
                     <Typography variant="h6" noWrap style={{ flex: "1" }}>
                         TODO TODAY!
                     </Typography>
-                    <Button color="inherit" onClick={handleLoginClick}>Login</Button>
+                    <Button color="inherit" onClick={handleLoginClick}>
+                        Login
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer
