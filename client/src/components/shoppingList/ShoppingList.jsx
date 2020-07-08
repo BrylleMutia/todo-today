@@ -5,7 +5,7 @@ import { Container, Button, List, ListItem, CircularProgress } from "@material-u
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { makeStyles, createStyles } from "@material-ui/styles";
 import { getItems } from "../../actions/actions";
-import "./ShoppingList.scss";
+import "./ShoppingList.css";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

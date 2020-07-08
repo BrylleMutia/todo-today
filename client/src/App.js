@@ -3,7 +3,7 @@ import { Container, makeStyles } from "@material-ui/core";
 import Drawer from "./components/drawer/Drawer";
 import ShoppingList from "./components/shoppingList/ShoppingList";
 import AddItemDialog from "./components/shoppingList/addItemDialog/AddItemDialog";
-import "./App.scss";
+import "./App.css";
 
 const useStyles = makeStyles({
     app: {
