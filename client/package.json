@@ -1,5 +1,6 @@
 {
     "name": "mern-todo-list",
+    "homepage": "http://todotoday-1.herokuapp.com",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
