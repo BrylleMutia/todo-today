@@ -1,25 +1,26 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
+const config = require("config");
 
 const app = express();
 
-const itemsRouter = require("./routes/api/items"); // import routes
-
 // body-parser middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
-// connect to db
+// connect to db 
 // local: "mongodb://127.0.0.1:27017"
-const db = "mongodb+srv://bryllemutia3:bryllem3@cluster0.jvmef.mongodb.net/todos?retryWrites=true&w=majority";
+// atlas: "mongodb+srv://bryllemutia3:bryllem3@cluster0.jvmef.mongodb.net/todos?retryWrites=true&w=majority"
+const db = config.get("mongoURI");
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => console.log(`Connected to database: ${db}`))
     .catch((err) => console.error(err));
 
 // Use routes (redirect all api requests to routes file)
-app.use("/api/items", itemsRouter);
+app.use("/api/items", require("./routes/api/items"));
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
 
 // Serve static assets if in production (react-npm run build)
 if (process.env.NODE_ENV === "production") {
