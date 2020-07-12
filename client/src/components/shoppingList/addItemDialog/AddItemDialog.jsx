@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+
 import { useDispatch } from "react-redux";
-import { addItem } from "../../../actions/actions";
+import { addItem } from "../../../actions/itemActions";
 
 const useStyles = makeStyles({
     addBtn: {

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useDispatch } from "react-redux";
+import { loadUser } from "./actions/authActions";
+
 import { Container, makeStyles } from "@material-ui/core";
 import Drawer from "./components/drawer/Drawer";
 import ShoppingList from "./components/shoppingList/ShoppingList";
 import AddItemDialog from "./components/shoppingList/addItemDialog/AddItemDialog";
+
 import "./App.css";
 
 const useStyles = makeStyles({
@@ -21,6 +26,12 @@ const useStyles = makeStyles({
 
 function App() {
     const classes = useStyles();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadUser()); // check for user auth everytime the app updates
+    }, [])
 
     return (
         <React.Fragment>

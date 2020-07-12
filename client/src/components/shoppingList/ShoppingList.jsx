@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { deleteItem } from "../../actions/actions";
-import { useSelector, useDispatch } from "react-redux";
+
 import { Container, Button, List, ListItem, CircularProgress } from "@material-ui/core";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { makeStyles, createStyles } from "@material-ui/styles";
-import { getItems } from "../../actions/actions";
+
+import { getItems, deleteItem } from "../../actions/itemActions";
+import { useSelector, useDispatch } from "react-redux";
+
 import "./ShoppingList.css";
 
 const useStyles = makeStyles((theme: Theme) =>
