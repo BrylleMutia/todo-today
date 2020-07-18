@@ -53,7 +53,7 @@ function AddItemDialog() {
                 <form onSubmit={handleAddItem}>
                     <DialogTitle id="form-dialog-title">ADD TO MY TODO LIST</DialogTitle>
                     <DialogContent>
-                        <TextField onChange={onFormChange} autoFocus margin="dense" id="name" label="Item" type="email" fullWidth />
+                        <TextField onChange={onFormChange} autoFocus margin="dense" id="item" label="Item" type="text" fullWidth />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">

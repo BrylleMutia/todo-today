@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import LoginModal from "./loginModal/LoginModal";
+import RegisterModal from "./registerModal/RegisterModal";
+import Logout from "./logout/Logout";
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
 import TodayIcon from "@material-ui/icons/Today";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, Button } from "@material-ui/core";
+import {
+    Drawer,
+    CssBaseline,
+    AppBar,
+    Toolbar,
+    List,
+    Typography,
+    Divider,
+    IconButton,
+    Button,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -80,7 +92,6 @@ export default function PersistentDrawerLeft() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [loginClicked, setLoginClicked] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -88,11 +99,6 @@ export default function PersistentDrawerLeft() {
 
     const handleDrawerClose = () => {
         setOpen(false);
-    };
-
-    const handleLoginClick = () => {
-        console.log("login clicked!");
-        setLoginClicked(!loginClicked);
     };
 
     return (
@@ -117,9 +123,8 @@ export default function PersistentDrawerLeft() {
                     <Typography variant="h6" noWrap style={{ flex: "1" }}>
                         TODO TODAY!
                     </Typography>
-                    <Button color="inherit" onClick={handleLoginClick}>
-                        Login
-                    </Button>
+                    <RegisterModal />
+                    <Logout />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -156,9 +161,6 @@ export default function PersistentDrawerLeft() {
                     Brylle Mutia &copy; 2020
                 </Button>
             </Drawer>
-
-            {/* login button warning */}
-            <LoginModal loginStatus={loginClicked} LoginClick={handleLoginClick} />
         </nav>
     );
 }
