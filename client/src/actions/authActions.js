@@ -32,6 +32,38 @@ export const registerUser = ({ name, email, password }) => (dispatch) => {
         });
 };
 
+export const loginUser = ({ email, password }) => dispatch => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    const body = JSON.stringify({
+        email,
+        password,
+    });
+
+    axios
+        .post("/api/auth", body, config)
+        .then((res) =>
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data,
+            })
+        )
+        .catch((err) => {
+            dispatch(returnErrors(err.response.data, err.response.status, "LOGIN_FAIL"));
+            dispatch({
+                type: LOGIN_FAIL,
+            });
+        });
+}
+
+export const logout = () => ({
+    type: LOGOUT_SUCCESS,
+});
+
 // check token and load user
 export const loadUser = () => (dispatch, getState) => {
     // runs every time the app updates
@@ -54,15 +86,11 @@ export const loadUser = () => (dispatch, getState) => {
         });
 };
 
-export const logout = () => ({
-    type: LOGOUT_SUCCESS
-})
-
 export const tokenConfig = () => {
     // get token from localstorage
     const token = localStorage.getItem("token");
 
-    // headers
+    // setup headers
     const config = {
         headers: {
             "Content-Type": "application/json",

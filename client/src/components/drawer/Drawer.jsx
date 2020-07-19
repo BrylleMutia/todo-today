@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import clsx from "clsx";
 import RegisterModal from "./registerModal/RegisterModal";
+import LoginModal from "./loginModal/LoginModal";
 import Logout from "./logout/Logout";
 
+import { useSelector } from "react-redux";
+
+import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -31,6 +34,9 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
+    },
+    welcome: {
+        marginRight: "2rem"
     },
     appBar: {
         transition: theme.transitions.create(["margin", "width"], {
@@ -88,10 +94,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModalToggle }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+
+    const { isAuthenticated, user } = useSelector((state) => state.auth);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -100,6 +108,23 @@ export default function PersistentDrawerLeft() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    // links for authenticated user and guests
+    const authLinks = (
+        <React.Fragment>
+            <span className={classes.welcome}>
+                <strong>{user ? `Welcome, ${user.name}!` : null}</strong>
+            </span>
+            <Logout />
+        </React.Fragment>
+    );
+
+    const guestLinks = (
+        <React.Fragment>
+            <RegisterModal isRegisterModalOpen={isRegisterModalOpen} registerModalToggle={registerModalToggle}/>
+            <LoginModal />
+        </React.Fragment>
+    );
 
     return (
         <nav className={classes.root}>
@@ -123,8 +148,7 @@ export default function PersistentDrawerLeft() {
                     <Typography variant="h6" noWrap style={{ flex: "1" }}>
                         TODO TODAY!
                     </Typography>
-                    <RegisterModal />
-                    <Logout />
+                    {isAuthenticated ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
             <Drawer

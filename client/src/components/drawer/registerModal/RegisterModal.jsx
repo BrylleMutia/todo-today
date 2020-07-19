@@ -18,22 +18,19 @@ const useStyles = makeStyles({
     },
 });
 
-function RegisterModal() {
+function RegisterModal({ isRegisterModalOpen, registerModalToggle, history }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const error = useSelector((state) => state.error);
 
-    const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [msg, setMsg] = useState(null);
 
     const onFormChange = (e) => {
-        
         switch (e.target.name) {
             case "name":
                 setName(e.target.value);
@@ -58,10 +55,6 @@ function RegisterModal() {
         };
 
         dispatch(registerUser(newUser));
-    };
-
-    const dialogToggle = () => {
-        setIsOpen(!isOpen);
         dispatch(clearErrors());
     };
 
@@ -72,16 +65,21 @@ function RegisterModal() {
         } else setMsg(null);
 
         // if authenticated, close modal
-        if(isOpen && isAuthenticated) dialogToggle();
+        if (isRegisterModalOpen && isAuthenticated) registerModalToggle();
+
+        // redirect user to dashboard if Authenticated
+        // if (!error.msg.msg && isAuthenticated) {
+        //     return <Redirect to="/dashboard" />
+        // }
     });
 
     return (
         <div className={classes.container}>
-            <Button color="inherit" onClick={dialogToggle}>
+            <Button color="inherit" onClick={registerModalToggle}>
                 Register
             </Button>
 
-            <Dialog open={isOpen} onClose={dialogToggle} aria-labelledby="form-dialog-title">
+            <Dialog open={isRegisterModalOpen} onClose={registerModalToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleRegisterUser}>
                     <DialogTitle id="form-dialog-title">REGISTER</DialogTitle>
                     {/* {msg ? <Alert color="error" variant="standard" /> : null} */}
@@ -91,7 +89,7 @@ function RegisterModal() {
                         <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={dialogToggle} color="primary">
+                        <Button onClick={registerModalToggle} color="primary">
                             Cancel
                         </Button>
                         <Button type="submit" onClick={handleRegisterUser} color="primary">

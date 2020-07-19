@@ -1,0 +1,19 @@
+.welcome {
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-container:first-child {
+    display: none;
+}
+
+.welcome-container img {
+    max-width: 70%;
+}
