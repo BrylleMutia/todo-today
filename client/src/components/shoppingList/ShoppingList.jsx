@@ -19,6 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             justifyContent: "center",
         },
+        span: {
+            display: "flex",
+            flexDirection: "row",
+            flex: "1",
+            marginRight: "5rem",
+            fontWeight: "450"
+        }
     })
 );
 
@@ -58,7 +65,8 @@ function ShoppingList() {
                                     >
                                         &#10003;
                                     </Button>
-                                    {item.name}
+                                    <span className={classes.span}>{item.name}</span>
+                                    <span>{item.date.slice(5, 10)}</span>
                                 </ListItem>
                             </CSSTransition>
                         ))}
@@ -68,7 +76,5 @@ function ShoppingList() {
         </Container>
     );
 }
-
-ShoppingList.propTypes = {};
 
 export default ShoppingList;
