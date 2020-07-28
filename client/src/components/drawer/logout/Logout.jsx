@@ -14,6 +14,9 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
     },
+    logout: {
+        marginLeft: "3rem"
+    }
 });
 
 function LogoutModal() {
@@ -34,7 +37,7 @@ function LogoutModal() {
 
     return (
         <div className={classes.container}>
-            <Button color="inherit" size="small" variant="outlined" onClick={logoutModalToggle}>
+            <Button className={classes.logout} color="inherit" size="small" variant="outlined" onClick={logoutModalToggle}>
                 Logout
             </Button>
 

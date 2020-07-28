@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RegisterModal from "./registerModal/RegisterModal";
 import LoginModal from "./loginModal/LoginModal";
 import Logout from "./logout/Logout";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeMode } from "../../actions/itemActions";
 
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -27,6 +28,7 @@ import {
     ListItem,
     ListItemText,
     ListItemIcon,
+    Hidden,
 } from "@material-ui/core";
 
 const drawerWidth = 240;
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     welcome: {
-        marginRight: "2rem"
+        marginRight: "auto",
     },
     appBar: {
         transition: theme.transitions.create(["margin", "width"], {
@@ -99,6 +101,7 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
+    const dispatch = useDispatch();
     const { isAuthenticated, user } = useSelector((state) => state.auth);
 
     const handleDrawerOpen = () => {
@@ -109,11 +112,28 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
         setOpen(false);
     };
 
+    // display options for todos
+    const showAllTodos = () => {
+        dispatch(changeMode("all"));
+        handleDrawerClose();
+    };
+
+    const showTodos = () => {
+        dispatch(changeMode("todos"));
+        handleDrawerClose();
+    };
+
+    const showCompletedTodos = () => {
+        dispatch(changeMode("completed"));
+        handleDrawerClose();
+    };
+
     // links for authenticated user and guests
     const authLinks = (
         <React.Fragment>
             <span className={classes.welcome}>
-                <strong>{user ? `Welcome, ${user.name}!` : null}</strong>
+                Welcome,
+                <strong> {user ? user.name : null}!</strong>
             </span>
             <Logout />
         </React.Fragment>
@@ -121,7 +141,7 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
 
     const guestLinks = (
         <React.Fragment>
-            <RegisterModal isRegisterModalOpen={isRegisterModalOpen} registerModalToggle={registerModalToggle}/>
+            <RegisterModal isRegisterModalOpen={isRegisterModalOpen} registerModalToggle={registerModalToggle} />
             <LoginModal />
         </React.Fragment>
     );
@@ -137,6 +157,7 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
             >
                 <Toolbar>
                     <IconButton
+                        style={{ display: isAuthenticated ? null : "none" }}
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
@@ -145,9 +166,11 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap style={{ flex: "1" }}>
-                        TODO TODAY!
-                    </Typography>
+                    <Hidden xsDown={isAuthenticated ? true : false}>
+                        <Typography variant="h6" noWrap style={{ flex: "1" }}>
+                            TODO TODAY!
+                        </Typography>
+                    </Hidden>
                     {isAuthenticated ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
@@ -165,21 +188,33 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
                 </div>
                 <Divider />
                 <List>
-                    {["All", "Today", "Tomorrow", "Next Week", "Completed"].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <DateRangeIcon /> : <TodayIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key={1} onClick={showAllTodos}>
+                        <ListItemIcon>
+                            <DateRangeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="All" />
+                    </ListItem>
+                    <ListItem button key={2} onClick={showTodos}>
+                        <ListItemIcon>
+                            <TodayIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Todo" />
+                    </ListItem>
+                    <ListItem button key={3} onClick={showCompletedTodos}>
+                        <ListItemIcon>
+                            <DateRangeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Completed" />
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    {["Settings", "Contact Me"].map((text, index) => (
-                        <ListItem button component="a" href="mailto:bryllemutia3@gmail.com" key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <SettingsIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button component="a" href="mailto:bryllemutia3@gmail.com" key={1}>
+                        <ListItemIcon>
+                            <MailIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Contact Me" />
+                    </ListItem>
                 </List>
                 <Button className={classes.bottomDrawerBtn} variant="contained" href="mailto:bryllemutia3@gmail.com">
                     Brylle Mutia &copy; 2020

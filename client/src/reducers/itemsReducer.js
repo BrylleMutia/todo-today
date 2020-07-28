@@ -1,8 +1,9 @@
-import { ADD_ITEM, DELETE_ITEM, GET_ITEMS, ITEMS_LOADING } from "../actions/types";
+import { ADD_ITEM, DELETE_ITEM, GET_ITEMS, ITEMS_LOADING, CHANGE_MODE } from "../actions/types";
 
 const initialState = {
     items: [],
     isLoading: false,
+    mode: "all"
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +29,11 @@ export default function (state = initialState, action) {
                 ...state,
                 isLoading: true,
             };
+        case CHANGE_MODE:
+            return {
+                ...state,
+                mode: action.payload
+            }
         default:
             return state;
     }

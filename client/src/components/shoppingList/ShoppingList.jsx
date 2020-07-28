@@ -24,8 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: "row",
             flex: "1",
             marginRight: "5rem",
-            fontWeight: "450"
-        }
+            fontWeight: "450",
+        },
+        todo_done: {
+            textDecoration: "line-through",
+            color: "grey",
+        },
     })
 );
 
@@ -35,8 +39,21 @@ function ShoppingList() {
 
     const dispatch = useDispatch();
 
-    const { items, isLoading } = useSelector((state) => state.items);
-    const userId = useSelector(state => state.auth.user._id);
+    let { items, isLoading } = useSelector((state) => state.items);
+    const userId = useSelector((state) => state.auth.user._id);
+    const mode = useSelector((state) => state.items.mode);
+
+    // display todos depending on current mode
+    switch (mode) {
+        case "todos":
+            items = items.filter((item) => item.completed !== true);
+            break;
+        case "completed":
+            items = items.filter((item) => item.completed === true);
+            break;
+        default:
+            break;
+    }
 
     // get items from database
     useEffect(() => {
@@ -62,12 +79,12 @@ function ShoppingList() {
                                         color="primary"
                                         variant="outlined"
                                         size="small"
+                                        disabled={item.completed ? true : false}
                                         onClick={() => handleDeleteItem(item._id)}
                                     >
                                         &#10003;
                                     </Button>
-                                    <span className={classes.span}>{item.name}</span>
-                                    <span>{item.date.slice(5, 10)}</span>
+                                    <span className={item.completed ? classes.todo_done : null}>{item.name}</span>
                                 </ListItem>
                             </CSSTransition>
                         ))}

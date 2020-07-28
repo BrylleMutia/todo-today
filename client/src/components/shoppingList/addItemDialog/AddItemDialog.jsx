@@ -8,7 +8,7 @@ import { addItem } from "../../../actions/itemActions";
 
 const useStyles = makeStyles({
     addBtn: {
-        marginTop: "1rem",
+        marginBottom: "1rem",
         minWidth: "50%",
     },
     container: {
@@ -40,7 +40,7 @@ function AddItemDialog() {
 
     const handleAddItem = (e) => {
         e.preventDefault();
-        dispatch(addItem(itemName, userId));
+        if(itemName) dispatch(addItem(itemName, userId));   // prevent empty input
         setItemName(""); // clear itemname field
         handleClose(); // close dialog
     };
@@ -58,10 +58,10 @@ function AddItemDialog() {
                         <TextField onChange={onFormChange} autoFocus margin="dense" id="item" label="Item" type="text" fullWidth />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={handleClose} size="small" color="primary">
                             Cancel
                         </Button>
-                        <Button type="submit" onClick={handleAddItem} color="primary">
+                        <Button type="submit" variant="contained" size="small" onClick={handleAddItem} color="primary">
                             Add Todo
                         </Button>
                     </DialogActions>

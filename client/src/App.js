@@ -49,8 +49,8 @@ function App() {
             <Container className={classes.container}>
                 {isAuthenticated ? (
                     <main className={classes.app}>
-                        <ShoppingList />
                         <AddItemDialog />
+                        <ShoppingList />
                     </main>
                 ) : (
                     <Welcome registerModalToggle={handleRegisterModalToggle} />

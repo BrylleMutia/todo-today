@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
     },
     register_msg: {
         marginBottom: "1rem",
+        textAlign: "center"
     },
 }));
 
@@ -24,7 +25,7 @@ function Welcome({ registerModalToggle }) {
                     What's your Todo Today?
                 </Typography>
                 <Typography className={classes.register_msg} variant="subtitle1">
-                    Not a user yet? Register to get started.
+                    Not a user yet? Get started now!
                 </Typography>
                 <Button variant="contained" color="primary" size="large" onClick={registerModalToggle}>
                     Get started

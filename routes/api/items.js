@@ -47,7 +47,10 @@ router.delete("/:id/:itemid", auth, (req, res) => {
 
     User.findById(id)
         .then((currentUser) => {
-            currentUser.todos = currentUser.todos.filter((item) => item._id.toString() !== itemid);
+            selectedTodo = currentUser.todos.filter((item) => item._id.toString() === itemid);
+            currentUser.todos.remove(selectedTodo[0]);
+            selectedTodo[0].completed = true;
+            currentUser.todos.push(selectedTodo[0]);
             currentUser.save().then((user) => res.json(user.todos));
         })
         .catch((err) => res.status(400).json(err));
