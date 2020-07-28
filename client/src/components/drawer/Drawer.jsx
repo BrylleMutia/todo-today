@@ -209,14 +209,14 @@ export default function PersistentDrawerLeft({ isRegisterModalOpen, registerModa
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button component="a" href="mailto:bryllemutia3@gmail.com" key={1}>
+                    <ListItem button component="a" href="https://web.facebook.com/brylle03/" key={1}>
                         <ListItemIcon>
                             <MailIcon />
                         </ListItemIcon>
                         <ListItemText primary="Contact Me" />
                     </ListItem>
                 </List>
-                <Button className={classes.bottomDrawerBtn} variant="contained" href="mailto:bryllemutia3@gmail.com">
+                <Button className={classes.bottomDrawerBtn} variant="contained" href="https://web.facebook.com/brylle03/">
                     Brylle Mutia &copy; 2020
                 </Button>
             </Drawer>
