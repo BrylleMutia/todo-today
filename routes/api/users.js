@@ -26,6 +26,9 @@ router.post("/", (req, res) => {
             name,
             email,
             password,
+            todos: [
+                {name: "Add a new Todo Today!"}
+            ]
         });
 
         // create salt & hash for password
@@ -36,12 +39,12 @@ router.post("/", (req, res) => {
                 newUser.password = hash;
                 newUser.save().then((user) => {
                     // send jsonwebtoken and user details
-                    jwt.sign({ id: user.id }, config.get("jwtSecret"), { expiresIn: 3600 }, (err, token) => {
+                    jwt.sign({ id: user._id }, config.get("jwtSecret"), { expiresIn: 3600 }, (err, token) => {
                         if (err) console.error(err);
                         res.json({
                             token,
                             user: {
-                                id: user._id,
+                                _id: user._id,
                                 name: user.name,
                                 email: user.email,
                             },

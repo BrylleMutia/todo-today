@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../../actions/itemActions";
 
 const useStyles = makeStyles({
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
 function AddItemDialog() {
     const classes = useStyles();
 
+    const userId = useSelector(state => state.auth.user._id);
     const dispatch = useDispatch();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -38,14 +40,14 @@ function AddItemDialog() {
 
     const handleAddItem = (e) => {
         e.preventDefault();
-        dispatch(addItem(itemName));
+        dispatch(addItem(itemName, userId));
         setItemName(""); // clear itemname field
         handleClose(); // close dialog
     };
 
     return (
         <div className={classes.container}>
-            <Button className={classes.addBtn} variant="contained" color="primary" onClick={handleClickOpen}>
+            <Button className={classes.addBtn} variant="contained" color="primary" startIcon={<AddBoxIcon />} onClick={handleClickOpen}>
                 New Todo
             </Button>
 

@@ -4,8 +4,6 @@ import ShoppingList from "./components/shoppingList/ShoppingList";
 import AddItemDialog from "./components/shoppingList/addItemDialog/AddItemDialog";
 import Welcome from "./components/drawer/welcome/Welcome";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./actions/authActions";
 import { clearErrors } from "./actions/errorActions";

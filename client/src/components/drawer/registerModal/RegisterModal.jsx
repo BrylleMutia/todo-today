@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
-// import { Alert } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../../actions/authActions";
@@ -82,7 +82,7 @@ function RegisterModal({ isRegisterModalOpen, registerModalToggle, history }) {
             <Dialog open={isRegisterModalOpen} onClose={registerModalToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleRegisterUser}>
                     <DialogTitle id="form-dialog-title">REGISTER</DialogTitle>
-                    {/* {msg ? <Alert color="error" variant="standard" /> : null} */}
+                    {msg ? <Alert color="error" variant="standard">{msg}</Alert> : null}
                     <DialogContent>
                         <TextField onChange={onFormChange} autoFocus name="name" margin="dense" id="name" label="Name" type="text" fullWidth />
                         <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth />

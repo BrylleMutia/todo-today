@@ -29,12 +29,12 @@ router.post("/", (req, res) => {
             if (!isMatch) return res.status(400).json({ msg: "Invalid username or password" });
 
             // if match, send user details and jsonwebtoken
-            jwt.sign({ id: user.id }, config.get("jwtSecret"), { expiresIn: 3600 }, (err, token) => {
+            jwt.sign({ id: user._id }, config.get("jwtSecret"), { expiresIn: 3600 }, (err, token) => {
                 if (err) console.error(err);
                 res.json({
                     token,
                     user: {
-                        id: user.id,
+                        _id: user._id,
                         name: user.name,
                         email: user.email,
                     },
@@ -49,7 +49,8 @@ router.post("/", (req, res) => {
 // @access  Private
 router.get("/user", auth, (req, res) => {
     User.findById(req.user.id) // set on auth middleware (jwt payload)
-        .select("-password") // exclude password
+        .select("-password") // exclude password 
+        .select("-todos") // exclude todos
         .then((user) => res.json(user));
 });
 

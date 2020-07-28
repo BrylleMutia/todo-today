@@ -36,14 +36,15 @@ function ShoppingList() {
     const dispatch = useDispatch();
 
     const { items, isLoading } = useSelector((state) => state.items);
+    const userId = useSelector(state => state.auth.user._id);
 
     // get items from database
     useEffect(() => {
-        dispatch(getItems());
-    }, [dispatch]);
+        dispatch(getItems(userId));
+    }, [dispatch, userId]);
 
-    const handleDeleteItem = (id) => {
-        dispatch(deleteItem(id));
+    const handleDeleteItem = (itemId) => {
+        dispatch(deleteItem(userId, itemId));
     };
 
     return (

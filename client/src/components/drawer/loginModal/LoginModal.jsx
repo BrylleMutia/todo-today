@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
-// import { Alert } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../../actions/authActions";
@@ -79,7 +79,7 @@ function LoginModal({ history }) {
             <Dialog open={isOpen} onClose={dialogToggle} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleLoginUser}>
                     <DialogTitle id="form-dialog-title">LOGIN</DialogTitle>
-                    {/* {msg ? <Alert color="error" variant="standard" /> : null} */}
+                    {msg ? <Alert color="error" variant="standard">{msg}</Alert> : null}
                     <DialogContent>
                         <TextField onChange={onFormChange} name="email" margin="dense" id="email" label="Email" type="email" fullWidth autoFocus />
                         <TextField onChange={onFormChange} name="password" margin="dense" id="password" label="Password" type="password" fullWidth />
